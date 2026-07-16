@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>506</title>
+
+    <link rel="stylesheet" href="./main.css" />
+  </head>
+  <body>
+    <h1>login page</h1>
+    <h2>welcome</h2>
+    <label>Username:</label>
+    <input type="text" id="Username" /><br /><br />
+    <label>Password:</label>
+    <input type="password" id="password" /><br /><br />
+    <input type="button" id="sub" value="login" />
+
+    <script>
+      const submit = document.getElementById("sub");
+      submit.addEventListener("click", () => {
+        const username = document.getElementById("Username").value;
+        const password = document.getElementById("password").value;
+        const data = { username: username, password: password };
+        console.log(data);
+        fetch("./data", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        })
+          .then((data) => {
+            console.log("first then hit");
+            return data.json();
+          })
+          .then((rawdata) => {
+            console.log("secondd then hit");
+            console.log(rawdata);
+            if (rawdata.message == "Sucess") {
+              localStorage.setItem("id", rawdata.id);
+              window.location.replace("./home.html");
+            } else {
+              if (document.getElementById("pwdorusr")) {
+                document.getElementById("pwdorusr").style.color = "red";
+                return;
+              } else {
+                document
+                  .getElementById("sub")
+                  .insertAdjacentHTML(
+                    "beforebegin",
+                    "<p id='pwdorusr'> User Name or Password Incorrect </p><br></br>",
+                  );
+              }
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      });
+    </script>
+  </body>
+</html>

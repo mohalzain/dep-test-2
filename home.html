@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background: #000;
+        overflow: hidden;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      #particles-js {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+      }
+
+      h1 {
+        position: relative;
+        color: #fff;
+        font-size: 4rem;
+        font-weight: 700;
+        letter-spacing: 5px;
+        z-index: 10;
+        text-shadow: none;
+        user-select: none;
+      }
+
+      .cursor {
+        display: inline-block;
+        margin-left: 3px;
+        animation: blink 0.8s infinite;
+      }
+
+      @keyframes blink {
+        50% {
+          opacity: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="particles-js"></div>
+
+    <h1><span id="name"></span><span class="cursor">|</span></h1>
+
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script>
+      let id = localStorage.getItem("id");
+      console.log(id);
+      fetch(`/home/${id}`, {
+        method: "GET",
+      })
+        .then((data) => {
+          console.log("first then hitted");
+          return data.json();
+        })
+        .then((rawdata) => {
+          console.log("second then hittttt");
+          const username = rawdata.username || "fuck";
+          console.log(username);
+          const output = document.getElementById("name");
+          let index = 0;
+
+          // Typing animation
+          function typeName() {
+            if (index < username.length) {
+              output.textContent += username.charAt(index);
+              index++;
+              setTimeout(typeName, 170);
+            }
+          }
+
+          typeName();
+
+          // Space particles
+          particlesJS("particles-js", {
+            particles: {
+              number: {
+                value: 450,
+                density: {
+                  enable: true,
+                  value_area: 1200,
+                },
+              },
+
+              color: {
+                value: "#ffffff",
+              },
+
+              shape: {
+                type: "circle",
+              },
+
+              opacity: {
+                value: 0.9,
+                random: true,
+                anim: {
+                  enable: true,
+                  speed: 0.3,
+                  opacity_min: 0.1,
+                  sync: false,
+                },
+              },
+
+              size: {
+                value: 2,
+                random: true,
+                anim: {
+                  enable: true,
+                  speed: 2,
+                  size_min: 0.2,
+                  sync: false,
+                },
+              },
+
+              line_linked: {
+                enable: false,
+              },
+
+              move: {
+                enable: true,
+                speed: 0.35,
+                direction: "none",
+                random: true,
+                straight: false,
+                out_mode: "out",
+                bounce: false,
+              },
+            },
+
+            interactivity: {
+              detect_on: "canvas",
+              events: {
+                onhover: {
+                  enable: false,
+                },
+                onclick: {
+                  enable: false,
+                },
+                resize: true,
+              },
+            },
+
+            retina_detect: true,
+          });
+        });
+    </script>
+  </body>
+</html>

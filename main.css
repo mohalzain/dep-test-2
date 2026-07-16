@@ -1,0 +1,125 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+ 
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+ 
+body{
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#0f172a,#1e3a8a,#3b82f6);
+    overflow:hidden;
+}
+ 
+/* Background Glow */
+body::before{
+    content:"";
+    position:absolute;
+    width:350px;
+    height:350px;
+    background:#60a5fa;
+    border-radius:50%;
+    filter:blur(120px);
+    top:-80px;
+    left:-80px;
+    opacity:.45;
+}
+ 
+body::after{
+    content:"";
+    position:absolute;
+    width:350px;
+    height:350px;
+    background:#7c3aed;
+    border-radius:50%;
+    filter:blur(120px);
+    bottom:-80px;
+    right:-80px;
+    opacity:.45;
+}
+ 
+/* Login Box */
+body>*{
+    position:relative;
+    z-index:1;
+}
+ 
+h1{
+    color:#fff;
+    font-size:42px;
+    margin-bottom:8px;
+    letter-spacing:2px;
+    text-transform:uppercase;
+}
+ 
+h2{
+    color:#dbeafe;
+    font-weight:300;
+    margin-bottom:35px;
+}
+ 
+/* Labels */
+label{
+    width:340px;
+    color:white;
+    font-size:15px;
+    font-weight:500;
+    margin-bottom:6px;
+}
+ 
+/* Inputs */
+input[type="text"],
+input[type="password"]{
+    width:340px;
+    padding:15px;
+    border:none;
+    border-radius:14px;
+    background:rgba(255,255,255,.12);
+    backdrop-filter:blur(15px);
+    color:white;
+    font-size:16px;
+    outline:none;
+    border:1px solid rgba(255,255,255,.15);
+    transition:.3s;
+}
+ 
+input::placeholder{
+    color:#d1d5db;
+}
+ 
+input[type="text"]:focus,
+input[type="password"]:focus{
+    border:1px solid #60a5fa;
+    box-shadow:0 0 18px rgba(96,165,250,.5);
+    transform:scale(1.02);
+}
+ 
+/* Button */
+input[type="button"]{
+    width:340px;
+    padding:15px;
+    border:none;
+    border-radius:14px;
+    background:linear-gradient(135deg,#2563eb,#7c3aed);
+    color:white;
+    font-size:17px;
+    font-weight:600;
+    cursor:pointer;
+    transition:.35s;
+    box-shadow:0 10px 25px rgba(37,99,235,.35);
+}
+ 
+input[type="button"]:hover{
+    transform:translateY(-3px);
+    box-shadow:0 18px 35px rgba(37,99,235,.55);
+}
+ 
+input[type="button"]:active{
+    transform:scale(.98);
+}
